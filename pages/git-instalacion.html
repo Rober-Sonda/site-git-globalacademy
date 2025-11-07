@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalación y Configuración de Git</title>
+</head>
+
+<body>
+    <header>
+        <h1>Instalación y Configuración de Git</h1>
+        <nav>
+            <p>
+                <a href="../index.html">Inicio</a> |
+                <a href="git-introduccion.html">Introducción</a> |
+                <a href="git-que-es.html">¿Qué es Git?</a> |
+                <a href="git-instalacion.html">Instalación</a> |
+                <a href="git-comandos.html">Comandos</a> |
+                <a href="git-ramas.html">Ramas</a> |
+                <a href="git-flujo.html">Flujo Completo</a> |
+                <a href="git-practica.html">Práctica</a> |
+                <a href="git-recursos.html">Recursos</a>
+            </p>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Instalación de Git</h2>
+
+            <h3>Windows</h3>
+            <ol>
+                <li>Descarga Git desde <a href="https://git-scm.com/download/win" target="_blank">git-scm.com</a></li>
+                <li>Ejecuta el instalador. Recomendaciones:
+                    <ul>
+                        <li>Selecciona "Git Bash" como terminal predeterminada</li>
+                        <li>Marca la opción "Usar Git desde la línea de comandos y también desde software de terceros"
+                        </li>
+                        <li>Deja las opciones de fin de línea en automático (convertir CRLF ↔ LF)</li>
+                    </ul>
+                </li>
+                <li>Una vez instalado, abre Git Bash o PowerShell y verifica la instalación:
+                    <pre>git --version</pre>
+                </li>
+            </ol>
+
+            <h3>macOS</h3>
+            <ol>
+                <li>Opción 1 (recomendada): Instala con Homebrew:
+                    <pre>brew install git</pre>
+                </li>
+                <li>Opción 2: Descarga el instalador desde <a href="https://git-scm.com/download/mac"
+                        target="_blank">git-scm.com</a></li>
+                <li>Verifica la instalación:
+                    <pre>git --version</pre>
+                </li>
+            </ol>
+
+            <h3>Linux</h3>
+            <p><strong>Ubuntu/Debian:</strong></p>
+            <pre>sudo apt update
+sudo apt install git</pre>
+
+            <p><strong>Fedora/Red Hat:</strong></p>
+            <pre>sudo dnf install git</pre>
+
+            <p><strong>Arch Linux:</strong></p>
+            <pre>sudo pacman -S git</pre>
+
+            <p>Verifica la instalación:</p>
+            <pre>git --version</pre>
+        </section>
+
+        <section>
+            <h2>Configuración Inicial OBLIGATORIA</h2>
+            <p>Antes de hacer tu primer commit, <strong>debes configurar tu identidad</strong>. Git necesita saber quién
+                eres para registrar correctamente quién hace cada cambio:</p>
+
+            <pre>git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"</pre>
+
+            <p><strong>¿Por qué es crítico?</strong> Cada commit que hagas quedará marcado con esta información. En
+                proyectos colaborativos, esto permite saber quién es responsable de cada cambio, facilita la
+                comunicación
+                entre desarrolladores, y es esencial para herramientas como GitHub/GitLab que asocian commits a
+                usuarios.</p>
+
+            <p><strong>Importante:</strong> El email debe coincidir con el que usas en GitHub/GitLab si quieres que tus
+                contribuciones se vinculen correctamente a tu perfil.</p>
+        </section>
+
+        <section>
+            <h2>Configuraciones Recomendadas Adicionales</h2>
+
+            <h3>1. Editor Predeterminado</h3>
+            <p>Git abrirá un editor cuando necesites escribir mensajes de commit largos. Configura tu editor favorito:
+            </p>
+            <pre>git config --global core.editor "code --wait"  # Visual Studio Code
+git config --global core.editor "nano"          # Nano (simple, en terminal)
+git config --global core.editor "vim"           # Vim (avanzado)</pre>
+
+            <h3>2. Alias para Comandos Comunes</h3>
+            <p>Los alias te ahorran tiempo al escribir comandos largos frecuentemente:</p>
+            <pre>git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.lg "log --oneline --graph --all --decorate"</pre>
+
+            <p>Ahora puedes escribir <code>git st</code> en lugar de <code>git status</code>, o <code>git lg</code> para
+                ver un hermoso historial gráfico en una línea.</p>
+
+            <h3>3. Colores en la Terminal</h3>
+            <pre>git config --global color.ui auto</pre>
+
+            <h3>4. Manejar Finales de Línea (Importante para equipos mixtos Windows/Linux/Mac)</h3>
+            <p><strong>Windows:</strong></p>
+            <pre>git config --global core.autocrlf true</pre>
+
+            <p><strong>Linux/Mac:</strong></p>
+            <pre>git config --global core.autocrlf input</pre>
+
+            <p>Esto evita conflictos por diferencias en finales de línea entre sistemas operativos.</p>
+        </section>
+
+        <section>
+            <h2>Verificar tu Configuración</h2>
+            <p>Para ver todas tus configuraciones:</p>
+            <pre>git config --list</pre>
+
+            <p>Para ver una configuración específica:</p>
+            <pre>git config user.name
+git config user.email</pre>
+
+            <p>Para editar manualmente el archivo de configuración:</p>
+            <pre>git config --global --edit</pre>
+        </section>
+
+        <section>
+            <h2>Los Tres Niveles de Configuración</h2>
+            <p>Git tiene tres niveles de configuración, en orden de prioridad (el último sobrescribe a los anteriores):
+            </p>
+            <ul>
+                <li><strong>--system:</strong> Afecta a todos los usuarios del sistema
+                    <pre>git config --system &lt;clave&gt; &lt;valor&gt;</pre>
+                </li>
+                <li><strong>--global:</strong> Afecta a todos los repositorios del usuario actual (lo más común)
+                    <pre>git config --global &lt;clave&gt; &lt;valor&gt;</pre>
+                </li>
+                <li><strong>--local:</strong> Afecta solo al repositorio actual (por defecto si no especificas nivel)
+                    <pre>git config --local &lt;clave&gt; &lt;valor&gt;</pre>
+                </li>
+            </ul>
+
+            <p><strong>Caso de uso práctico:</strong> Puedes tener un email personal configurado globalmente, pero
+                sobrescribirlo localmente en repositorios de trabajo con tu email corporativo:</p>
+            <pre>cd /proyecto-empresa
+git config --local user.email "yo@empresaXYZ.com"</pre>
+        </section>
+
+        <section>
+            <h2>Primeros Pasos: Verificación del Entorno</h2>
+            <p>Después de instalar y configurar, asegúrate de que todo funciona:</p>
+            <pre>git --version
+git config user.name
+git config user.email</pre>
+
+            <p>Si ves tu nombre y email, ¡estás listo para empezar a usar Git!</p>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p><a href="git-que-es.html">← Anterior: ¿Qué es Git?</a> | <a href="git-comandos.html">Siguiente: Comandos
+                Esenciales →</a></p>
+        <p><a href="../index.html">← Volver al índice</a></p>
+        <p><small>Creado por Rober Sonda — Guía de Control de Versiones 2025</small></p>
+    </footer>
+</body>
+
+</html>
