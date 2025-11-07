@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos Adicionales y Mejores Prácticas</title>
+</head>
+
+<body>
+    <header>
+        <h1>Recursos Adicionales y Mejores Prácticas</h1>
+        <nav>
+            <p>
+                <a href="../index.html">Inicio</a> |
+                <a href="git-introduccion.html">Introducción</a> |
+                <a href="git-que-es.html">¿Qué es Git?</a> |
+                <a href="git-instalacion.html">Instalación</a> |
+                <a href="git-comandos.html">Comandos</a> |
+                <a href="git-ramas.html">Ramas</a> |
+                <a href="git-flujo.html">Flujo Completo</a> |
+                <a href="git-practica.html">Práctica</a> |
+                <a href="git-recursos.html">Recursos</a>
+            </p>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Errores Comunes y Cómo Resolverlos</h2>
+
+            <h3>1. "fatal: not a git repository"</h3>
+            <p><strong>Problema:</strong> Intentas usar comandos Git en una carpeta que no es un repositorio.</p>
+            <p><strong>Solución:</strong></p>
+            <pre>git init  # Si quieres convertirla en repositorio
+# O navega a una carpeta que sí sea un repositorio</pre>
+
+            <h3>2. "error: failed to push some refs"</h3>
+            <p><strong>Problema:</strong> El repositorio remoto tiene cambios que tú no tienes localmente.</p>
+            <p><strong>Solución:</strong></p>
+            <pre>git pull --rebase  # Integra cambios remotos
+git push           # Intenta de nuevo</pre>
+
+            <h3>3. "You have divergent branches"</h3>
+            <p><strong>Problema:</strong> Tu rama y la remota tienen commits diferentes.</p>
+            <p><strong>Solución:</strong></p>
+            <pre>git pull --rebase origin main  # O usa merge si prefieres
+git push</pre>
+
+            <h3>4. "Please commit your changes or stash them before you merge"</h3>
+            <p><strong>Problema:</strong> Tienes cambios sin guardar que podrían entrar en conflicto.</p>
+            <p><strong>Solución:</strong></p>
+            <pre>git stash        # Guarda cambios temporalmente
+git merge ...    # Haz la operación que querías
+git stash pop    # Recupera tus cambios</pre>
+
+            <h3>5. "fatal: refusing to merge unrelated histories"</h3>
+            <p><strong>Problema:</strong> Intentas fusionar dos repositorios sin historia en común.</p>
+            <p><strong>Solución:</strong></p>
+            <pre>git pull origin main --allow-unrelated-histories</pre>
+
+            <h3>6. "Detached HEAD state"</h3>
+            <p><strong>Problema:</strong> Hiciste <code>git checkout abc1234</code> (un commit específico) y ahora no
+                estás en ninguna rama.</p>
+            <p><strong>Solución:</strong></p>
+            <pre>git checkout main  # Vuelve a una rama normal
+# Si hiciste cambios importantes, crea una rama:
+git checkout -b nueva-rama</pre>
+        </section>
+
+        <section>
+            <h2>Mejores Prácticas Profesionales</h2>
+
+            <h3>1. Commits Pequeños y Frecuentes</h3>
+            <p><strong>Bueno:</strong> Hacer un commit cada vez que completas una subtarea lógica (ej: "Agrega
+                validación
+                de email").</p>
+            <p><strong>Malo:</strong> Un solo commit gigante al final del día con "Cambios del día".</p>
+            <p><strong>Por qué:</strong> Commits pequeños facilitan la revisión, el debugging (encontrar bugs con
+                <code>git bisect</code>), y revertir cambios específicos sin afectar todo.
+            </p>
+
+            <h3>2. Mensajes de Commit Descriptivos</h3>
+            <p><strong>Bueno:</strong></p>
+            <pre>git commit -m "Corrige error de validación en formulario de registro
+
+El campo de email no validaba correctamente direcciones con
+subdominios. Se agrega regex mejorado y tests unitarios."</pre>
+
+            <p><strong>Malo:</strong></p>
+            <pre>git commit -m "fix"
+git commit -m "cambios"
+git commit -m "asdf"</pre>
+
+            <p><strong>Formato recomendado (Conventional Commits):</strong></p>
+            <pre>tipo(alcance): descripción breve
+
+Cuerpo opcional con más detalles
+
+Tipos comunes:
+- feat: Nueva funcionalidad
+- fix: Corrección de bug
+- docs: Cambios en documentación
+- style: Formato, punto y coma faltantes, etc.
+- refactor: Reestructuración sin cambiar funcionalidad
+- test: Agregar o corregir tests
+- chore: Tareas de mantenimiento
+
+Ejemplo:
+feat(auth): implementa autenticación con JWT
+
+Agrega middleware de autenticación usando JSON Web Tokens.
+Incluye validación de tokens en rutas protegidas.</pre>
+
+            <h3>3. Usa .gitignore desde el Inicio</h3>
+            <p>Crea <code>.gitignore</code> ANTES de hacer tu primer commit para evitar versionar archivos innecesarios.
+            </p>
+            <p><strong>Recursos:</strong></p>
+            <ul>
+                <li><a href="https://gitignore.io" target="_blank">gitignore.io</a> - Generador de .gitignore</li>
+                <li><a href="https://github.com/github/gitignore" target="_blank">GitHub's gitignore templates</a> -
+                    Colección de plantillas</li>
+            </ul>
+
+            <h3>4. Nunca Hagas Commit de Secretos</h3>
+            <p><strong>NUNCA versiones:</strong></p>
+            <ul>
+                <li>Contraseñas, API keys, tokens</li>
+                <li>Certificados privados</li>
+                <li>Archivos <code>.env</code> con variables sensibles</li>
+                <li>Credenciales de bases de datos</li>
+            </ul>
+            <p><strong>En su lugar:</strong></p>
+            <ul>
+                <li>Usa variables de entorno</li>
+                <li>Versiona archivos de ejemplo (<code>.env.example</code>) con valores ficticios</li>
+                <li>Usa herramientas como <code>git-secrets</code> para detectar commits accidentales de secretos</li>
+            </ul>
+
+            <h3>5. Pull Antes de Push</h3>
+            <pre># Flujo recomendado
+git pull     # Actualiza tu copia
+# Trabaja y haz commits
+git pull     # Actualiza de nuevo por si hay cambios nuevos
+git push     # Sube tus cambios</pre>
+
+            <h3>6. Protege la Rama Main</h3>
+            <p>En GitHub/GitLab, configura protecciones para <code>main</code>:</p>
+            <ul>
+                <li>Requiere Pull Requests para fusionar</li>
+                <li>Requiere al menos 1 aprobación</li>
+                <li>Requiere que pasen tests antes de fusionar</li>
+                <li>No permite force push</li>
+            </ul>
+
+            <h3>7. Revisa Antes de Hacer Commit</h3>
+            <pre>git status   # ¿Qué archivos cambiarán?
+git diff     # ¿Qué líneas específicas cambiaron?
+git add ...
+git status   # Verifica que solo agregaste lo que querías
+git commit</pre>
+        </section>
+
+        <section>
+            <h2>Herramientas Útiles</h2>
+
+            <h3>1. Git GUI Clients</h3>
+            <ul>
+                <li><strong>GitKraken:</strong> Interfaz visual potente y multiplataforma</li>
+                <li><strong>Sourcetree:</strong> Cliente gráfico gratuito de Atlassian</li>
+                <li><strong>GitHub Desktop:</strong> Simple, ideal para principiantes</li>
+                <li><strong>VS Code:</strong> Integración nativa excelente de Git</li>
+            </ul>
+
+            <h3>2. Extensiones de VS Code</h3>
+            <ul>
+                <li><strong>GitLens:</strong> Visualiza quién cambió cada línea, historial enriquecido</li>
+                <li><strong>Git Graph:</strong> Ver el historial de ramas visualmente</li>
+                <li><strong>Git History:</strong> Explorar el historial de archivos</li>
+            </ul>
+
+            <h3>3. Comandos Avanzados Útiles</h3>
+            <pre># Buscar texto en todo el historial
+git log -S "texto_a_buscar"
+
+# Ver quien modificó cada línea de un archivo
+git blame archivo.txt
+
+# Buscar el commit que introdujo un bug (bisección binaria)
+git bisect start
+git bisect bad       # Este commit tiene el bug
+git bisect good abc123  # Este commit antiguo no tenía el bug
+# Git irá probando commits intermedios, tú marcas "good" o "bad"
+# hasta encontrar el commit culpable
+
+# Guardar cambios temporalmente (stash)
+git stash
+git stash list
+git stash pop
+git stash apply stash@{1}
+
+# Aplicar un commit específico de otra rama
+git cherry-pick abc1234
+
+# Crear un archivo comprimido del proyecto
+git archive --format=zip HEAD > proyecto.zip
+
+# Ver diferencias entre ramas
+git diff main..feature-rama</pre>
+        </section>
+
+        <section>
+            <h2>Git Hooks: Automatización Poderosa</h2>
+            <p><strong>Git Hooks</strong> son scripts que se ejecutan automáticamente en ciertos eventos de Git (antes
+                de
+                commit, después de push, etc.).</p>
+
+            <p><strong>Ejemplo: Hook pre-commit que verifica formato de código</strong></p>
+            <p>Crea el archivo <code>.git/hooks/pre-commit</code>:</p>
+            <pre>#!/bin/sh
+# Verifica que los archivos .js pasen ESLint antes de hacer commit
+
+eslint .
+if [ $? -ne 0 ]; then
+  echo "ESLint encontró errores. Commit abortado."
+  exit 1
+fi
+
+echo "ESLint pasó correctamente."
+exit 0</pre>
+            <p>Dale permisos de ejecución:</p>
+            <pre>chmod +x .git/hooks/pre-commit</pre>
+
+            <p><strong>Hooks comunes:</strong></p>
+            <ul>
+                <li><strong>pre-commit:</strong> Validar código antes de commit</li>
+                <li><strong>commit-msg:</strong> Validar formato de mensajes de commit</li>
+                <li><strong>pre-push:</strong> Ejecutar tests antes de hacer push</li>
+                <li><strong>post-merge:</strong> Instalar dependencias después de fusionar</li>
+            </ul>
+
+            <p><strong>Herramienta recomendada:</strong> <a href="https://pre-commit.com/"
+                    target="_blank">pre-commit</a>
+                - Framework para gestionar hooks fácilmente.</p>
+        </section>
+
+        <section>
+            <h2>Recursos de Aprendizaje</h2>
+
+            <h3>Tutoriales Interactivos</h3>
+            <ul>
+                <li><a href="https://learngitbranching.js.org/" target="_blank">Learn Git Branching</a> - Tutoriales
+                    visuales e interactivos (¡muy recomendado!)</li>
+                <li><a href="https://try.github.io/" target="_blank">GitHub Learning Lab</a> - Cursos guiados paso a
+                    paso</li>
+                <li><a href="https://www.katacoda.com/courses/git" target="_blank">Katacoda Git Scenarios</a> - Práctica
+                    en
+                    entornos reales</li>
+            </ul>
+
+            <h3>Documentación y Referencias</h3>
+            <ul>
+                <li><a href="https://git-scm.com/doc" target="_blank">Documentación Oficial de Git</a></li>
+                <li><a href="https://git-scm.com/book/es/v2" target="_blank">Pro Git Book (Español)</a> - Libro completo
+                    gratuito</li>
+                <li><a href="https://ohshitgit.com/" target="_blank">Oh Shit, Git!?!</a> - Soluciones a problemas
+                    comunes</li>
+                <li><a href="https://github.com/k88hudson/git-flight-rules" target="_blank">Git Flight Rules</a> - Guía
+                    de
+                    emergencias para Git</li>
+            </ul>
+
+            <h3>Videos en YouTube</h3>
+            <ul>
+                <li><strong>Fireship:</strong> "Git It? How to use Git and Github" (13 minutos, muy visual)</li>
+                <li><strong>The Coding Train:</strong> "Git and GitHub for Poets" (serie para principiantes)</li>
+                <li><strong>Traversy Media:</strong> "Git & GitHub Crash Course For Beginners"</li>
+            </ul>
+
+            <h3>Práctica con Juegos</h3>
+            <ul>
+                <li><a href="https://ohmygit.org/" target="_blank">Oh My Git!</a> - Juego para aprender Git</li>
+                <li><a href="https://github.com/git-game/git-game" target="_blank">Git Game</a> - Resuelve misterios
+                    usando
+                    comandos de Git</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Cheat Sheet: Comandos Más Usados</h2>
+            <pre><strong>Configuración Inicial:</strong>
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+
+<strong>Crear/Clonar Repositorio:</strong>
+git init
+git clone &lt;url&gt;
+
+<strong>Flujo Básico:</strong>
+git status
+git add .
+git commit -m "mensaje"
+git push
+git pull
+
+<strong>Ramas:</strong>
+git branch
+git checkout -b nueva-rama
+git switch nombre-rama
+git merge otra-rama
+git branch -d rama-vieja
+
+<strong>Ver Historial:</strong>
+git log
+git log --oneline --graph --all
+git show abc1234
+
+<strong>Deshacer:</strong>
+git restore archivo.txt
+git restore --staged archivo.txt
+git reset --soft HEAD~1
+git revert abc1234
+
+<strong>Remoto:</strong>
+git remote -v
+git remote add origin &lt;url&gt;
+git push -u origin main
+git fetch
+git pull
+
+<strong>Información:</strong>
+git diff
+git blame archivo.txt
+git log --author="nombre"</pre>
+        </section>
+
+        <section>
+            <h2>Próximos Pasos en tu Viaje con Git</h2>
+            <ol>
+                <li><strong>Práctica diaria:</strong> Usa Git en todos tus proyectos, incluso personales pequeños</li>
+                <li><strong>Contribuye a open source:</strong> Encuentra proyectos que te interesen en GitHub y haz tu
+                    primer Pull Request</li>
+                <li><strong>Explora Git avanzado:</strong> Aprende sobre <code>git rebase --interactive</code>,
+                    <code>git bisect</code>, <code>git reflog</code>
+                </li>
+                <li><strong>Automatiza:</strong> Configura CI/CD con GitHub Actions, GitLab CI o Jenkins</li>
+                <li><strong>Profundiza en flujos de trabajo:</strong> Estudia Git Flow, GitHub Flow, Trunk-Based
+                    Development</li>
+                <li><strong>Enseña a otros:</strong> La mejor forma de consolidar conocimiento es explicarlo</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Comunidad y Ayuda</h2>
+            <ul>
+                <li><strong>Stack Overflow:</strong> Etiqueta [git] para preguntas técnicas</li>
+                <li><strong>Reddit:</strong> r/git - Comunidad activa</li>
+                <li><strong>Discord/Slack:</strong> Muchos servidores de programación tienen canales de Git</li>
+                <li><strong>GitHub Community Forum:</strong> discussions.github.com</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Palabras Finales</h2>
+            <p>Git es una herramienta que al principio puede parecer compleja, pero con práctica se vuelve una extensión
+                natural de tu flujo de trabajo. <strong>No tengas miedo de cometer errores</strong> — casi todo en Git
+                se
+                puede deshacer.</p>
+
+            <p><strong>Recuerda:</strong></p>
+            <ul>
+                <li>Git no es GitHub (Git es la herramienta, GitHub es una plataforma que usa Git)</li>
+                <li>Hacer commits frecuentes es mejor que commits gigantes</li>
+                <li>Las ramas son baratas, úsalas sin miedo</li>
+                <li>Siempre puedes pedir ayuda a la comunidad</li>
+                <li>La práctica constante es la clave para dominar Git</li>
+            </ul>
+
+            <p><strong>¡Felicidades por completar esta guía! Ahora tienes las herramientas para versionar código como un
+                    profesional.</strong></p>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p><a href="git-practica.html">← Anterior: Práctica y Casos Reales</a></p>
+        <p><a href="../index.html">← Volver al índice</a></p>
+        <p><small>Creado por Rober Sonda — Guía de Control de Versiones 2025</small></p>
+    </footer>
+</body>
+
+</html>
