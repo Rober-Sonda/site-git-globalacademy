@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comandos Esenciales de Git</title>
+</head>
+
+<body>
+    <header>
+        <h1>Comandos Esenciales de Git</h1>
+        <nav>
+            <p>
+                <a href="../index.html">Inicio</a> |
+                <a href="git-introduccion.html">Introducción</a> |
+                <a href="git-que-es.html">¿Qué es Git?</a> |
+                <a href="git-instalacion.html">Instalación</a> |
+                <a href="git-comandos.html">Comandos</a> |
+                <a href="git-ramas.html">Ramas</a> |
+                <a href="git-flujo.html">Flujo Completo</a> |
+                <a href="git-practica.html">Práctica</a> |
+                <a href="git-recursos.html">Recursos</a> |
+                <a href="git-galeria.html">Galería</a> |
+                <a href="git-contacto.html">Contacto</a>
+            </p>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Los Tres Estados de Git: La Base Conceptual</h2>
+            <p>Antes de aprender comandos, debes entender cómo Git maneja los archivos. Todo archivo en Git puede estar
+                en uno de <strong>tres estados</strong>:</p>
+
+            <ol>
+                <li><strong>Working Directory (Directorio de Trabajo):</strong> Aquí están tus archivos normales, donde
+                    editas código. Puedes modificar, crear o borrar archivos libremente.</li>
+                <li><strong>Staging Area (Área de Preparación):</strong> Es una zona intermedia donde preparas los
+                    cambios
+                    que quieres incluir en el próximo commit. Aquí decides qué cambios guardar y cuáles no.</li>
+                <li><strong>Repository (Repositorio / Historial):</strong> Aquí Git guarda permanentemente los commits.
+                    Una vez que haces commit, los cambios quedan registrados en el historial con un identificador único
+                    (hash SHA-1).</li>
+            </ol>
+
+            <figure>
+                <figcaption>Flujo de Estados en Git</figcaption>
+                <pre>
+Working Directory → Staging Area → Repository
+  (modificas)     → (git add)    → (git commit)
+
+┌──────────────────┐   git add    ┌──────────────┐   git commit   ┌─────────────┐
+│ Working Directory│──────────────→│ Staging Area │───────────────→│ Repository  │
+│  Archivos que   │               │  Preparados  │                │  Historial  │
+│  estás editando │               │  para commit │                │  Permanente │
+└──────────────────┘               └──────────────┘                └─────────────┘
+        </pre>
+            </figure>
+
+            <p><strong>Analogía:</strong> Imagina que estás empacando una caja para enviar. El <em>Working
+                    Directory</em>
+                es toda tu casa donde tienes cosas, el <em>Staging Area</em> es la mesa donde colocas lo que vas a
+                empacar,
+                y el <em>Repository</em> es la caja sellada que envías. Una vez que cierras y envías la caja (commit),
+                no
+                puedes cambiar su contenido fácilmente.</p>
+        </section>
+
+        <section>
+            <h2>Iniciar un Repositorio</h2>
+
+            <h3>git init - Crear un repositorio nuevo</h3>
+            <pre>git init</pre>
+            <p><strong>¿Qué hace?</strong> Convierte la carpeta actual en un repositorio de Git, creando una subcarpeta
+                oculta <code>.git/</code> donde se guardará todo el historial.</p>
+            <p><strong>Cuándo usarlo:</strong> Cuando empiezas un proyecto nuevo desde cero y quieres versionarlo.</p>
+
+            <h3>git clone - Copiar un repositorio existente</h3>
+            <pre>git clone https://github.com/usuario/proyecto.git</pre>
+            <p><strong>¿Qué hace?</strong> Descarga una copia completa de un repositorio remoto (incluido todo su
+                historial)
+                a tu máquina local.</p>
+            <p><strong>Cuándo usarlo:</strong> Cuando quieres trabajar en un proyecto que ya existe en
+                GitHub/GitLab/Bitbucket.</p>
+            <p><strong>Ejemplo:</strong></p>
+            <pre>git clone https://github.com/facebook/react.git
+cd react</pre>
+        </section>
+
+        <section>
+            <h2>Comandos Básicos del Flujo de Trabajo</h2>
+
+            <h3>git status - ¿Qué está pasando?</h3>
+            <pre>git status</pre>
+            <p><strong>El comando más importante para principiantes.</strong> Te muestra:</p>
+            <ul>
+                <li>Qué archivos han sido modificados</li>
+                <li>Qué archivos están en Staging (listos para commit)</li>
+                <li>Qué archivos son nuevos y aún no están rastreados</li>
+                <li>En qué rama estás trabajando</li>
+            </ul>
+            <p><strong>Consejo:</strong> Ejecuta <code>git status</code> constantemente para no perderte.</p>
+
+            <h3>git add - Agregar archivos al Staging Area</h3>
+            <pre>git add archivo.txt           # Agregar un archivo específico
+git add carpeta/              # Agregar todos los archivos de una carpeta
+git add .                     # Agregar todos los cambios del directorio actual
+git add *.js                  # Agregar todos los archivos .js</pre>
+            <p><strong>¿Qué hace?</strong> Prepara archivos para el próximo commit moviéndolos de Working Directory a
+                Staging Area.</p>
+            <p><strong>¿Por qué existe este paso?</strong> Te permite ser selectivo. Puedes modificar 10 archivos pero
+                hacer commit solo de 3, organizando cambios lógicamente.</p>
+
+            <h3>git commit - Guardar cambios permanentemente</h3>
+            <pre>git commit -m "Descripción clara del cambio"</pre>
+            <p><strong>¿Qué hace?</strong> Crea una "fotografía" permanente del estado actual de los archivos que están
+                en Staging, registrándola en el historial con un mensaje descriptivo.</p>
+            <p><strong>Buenas prácticas para mensajes de commit:</strong></p>
+            <ul>
+                <li>Usa modo imperativo: "Agrega función de login" (no "Agregué" ni "Agregando")</li>
+                <li>Primera línea corta (máximo 50 caracteres)</li>
+                <li>Si necesitas más detalles, deja una línea en blanco y escribe un párrafo explicativo</li>
+                <li>Sé específico: "Corrige error de validación en formulario de registro" es mejor que "Correcciones"
+                </li>
+            </ul>
+
+            <p><strong>Comando útil:</strong></p>
+            <pre>git commit -a -m "Mensaje"</pre>
+            <p>El flag <code>-a</code> hace <code>git add</code> automáticamente de <strong>archivos ya
+                    rastreados</strong>
+                que fueron modificados (no funciona con archivos nuevos).</p>
+        </section>
+
+        <section>
+            <h2>Ver el Historial</h2>
+
+            <h3>git log - Ver historial de commits</h3>
+            <pre>git log</pre>
+            <p>Muestra la lista de commits con:</p>
+            <ul>
+                <li>Hash del commit (identificador único)</li>
+                <li>Autor y fecha</li>
+                <li>Mensaje del commit</li>
+            </ul>
+
+            <h3>Variantes útiles de git log</h3>
+            <pre>git log --oneline                    # Resumen compacto (una línea por commit)
+git log --oneline --graph --all      # Historial gráfico con todas las ramas
+git log -3                           # Solo los últimos 3 commits
+git log --author="María"             # Commits de un autor específico
+git log --since="2 weeks ago"        # Commits de las últimas 2 semanas
+git log --grep="bug"                 # Buscar commits por palabra clave</pre>
+
+            <h3>git show - Ver detalles de un commit</h3>
+            <pre>git show abc1234</pre>
+            <p>Muestra qué cambios específicos se hicieron en un commit particular (líneas agregadas/eliminadas).</p>
+        </section>
+
+        <section>
+            <h2>Deshacer Cambios (Comandos Críticos)</h2>
+
+            <h3>git restore - Descartar cambios en Working Directory</h3>
+            <pre>git restore archivo.txt</pre>
+            <p><strong>¿Qué hace?</strong> Descarta las modificaciones de un archivo que aún no has agregado a Staging,
+                restaurándolo al estado del último commit.</p>
+            <p><strong>Peligro:</strong> Los cambios se pierden permanentemente.</p>
+
+            <h3>git restore --staged - Quitar archivos de Staging</h3>
+            <pre>git restore --staged archivo.txt</pre>
+            <p><strong>¿Qué hace?</strong> Mueve el archivo de Staging Area de vuelta a Working Directory (sin perder
+                las modificaciones). Es el opuesto de <code>git add</code>.</p>
+
+            <h3>git reset - Volver a un commit anterior</h3>
+            <pre>git reset --soft HEAD~1      # Deshace el último commit pero mantiene cambios en Staging
+git reset --mixed HEAD~1     # Deshace el commit y quita cambios de Staging (deja cambios en Working)
+git reset --hard HEAD~1      # Deshace el commit y BORRA todos los cambios</pre>
+            <p><strong>HEAD~1</strong> significa "el commit anterior al actual".</p>
+            <p><strong>Peligro con --hard:</strong> Los cambios se pierden permanentemente. Úsalo solo si estás
+                seguro.</p>
+
+            <h3>git revert - Deshacer un commit de forma segura</h3>
+            <pre>git revert abc1234</pre>
+            <p><strong>¿Qué hace?</strong> Crea un <strong>nuevo commit</strong> que deshace los cambios de un commit
+                anterior, sin borrar el historial.</p>
+            <p><strong>¿Por qué es mejor que reset?</strong> Es seguro en proyectos colaborativos porque no reescribe
+                historial. Si ya compartiste commits con el equipo, usa <code>revert</code> en lugar de
+                <code>reset</code>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Trabajar con Archivos</h2>
+
+            <h3>git diff - Ver qué cambió</h3>
+            <pre>git diff                    # Cambios en Working Directory (no en Staging)
+git diff --staged           # Cambios en Staging Area
+git diff abc1234 def5678    # Diferencias entre dos commits</pre>
+
+            <h3>git rm - Eliminar archivos</h3>
+            <pre>git rm archivo.txt          # Elimina el archivo y prepara el borrado para commit
+git rm --cached archivo.txt # Deja de rastrear el archivo pero no lo borra del disco</pre>
+
+            <h3>git mv - Renombrar/mover archivos</h3>
+            <pre>git mv archivo_viejo.txt archivo_nuevo.txt</pre>
+            <p>Git detecta que es un renombre, no un borrado + creación nueva.</p>
+        </section>
+
+        <section>
+            <h2>Ignorar Archivos con .gitignore</h2>
+            <p>Hay archivos que NO quieres versionar (logs, contraseñas, archivos temporales). Crea un archivo
+                <code>.gitignore</code> en la raíz del proyecto:
+            </p>
+            <pre># Ignorar archivos de Node.js
+node_modules/
+
+# Ignorar variables de entorno
+.env
+
+# Ignorar logs
+*.log
+
+# Ignorar archivos de build
+build/
+dist/</pre>
+            <p><strong>Consejo:</strong> Visita <a href="https://gitignore.io" target="_blank">gitignore.io</a> para
+                generar .gitignore automáticamente según tu lenguaje/framework.</p>
+        </section>
+
+        <section>
+            <h2>Comandos de Información</h2>
+
+            <h3>git blame - ¿Quién modificó esta línea?</h3>
+            <pre>git blame archivo.txt</pre>
+            <p>Muestra quién fue el último en modificar cada línea del archivo. Útil para saber a quién preguntar sobre
+                código específico.</p>
+
+            <h3>git shortlog - Resumen de contribuciones</h3>
+            <pre>git shortlog -sn</pre>
+            <p>Muestra cuántos commits hizo cada desarrollador. Útil para reportes de actividad.</p>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p><a href="git-instalacion.html">← Anterior: Instalación</a> | <a href="git-ramas.html">Siguiente: Ramas y
+                Branching →</a></p>
+        <p><a href="../index.html">← Volver al índice</a></p>
+        <p><small>Creado por Rober Sonda — Guía de Control de Versiones 2025</small></p>
+    </footer>
+</body>
+
+</html>

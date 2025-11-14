@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica y Casos Reales</title>
+</head>
+
+<body>
+    <header>
+        <h1>Práctica y Casos Reales con Git</h1>
+        <nav>
+            <p>
+                <a href="../index.html">Inicio</a> |
+                <a href="git-introduccion.html">Introducción</a> |
+                <a href="git-que-es.html">¿Qué es Git?</a> |
+                <a href="git-instalacion.html">Instalación</a> |
+                <a href="git-comandos.html">Comandos</a> |
+                <a href="git-ramas.html">Ramas</a> |
+                <a href="git-flujo.html">Flujo Completo</a> |
+                <a href="git-practica.html">Práctica</a> |
+                <a href="git-recursos.html">Recursos</a> |
+                <a href="git-galeria.html">Galería</a> |
+                <a href="git-contacto.html">Contacto</a>
+            </p>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Ejercicio 1: Tu Primer Proyecto con Git</h2>
+            <p><strong>Objetivo:</strong> Crear un proyecto desde cero, versionarlo localmente y subirlo a GitHub.</p>
+
+            <h3>Pasos:</h3>
+            <ol>
+                <li>Crea una carpeta nueva:
+                    <pre>mkdir mi-primer-proyecto
+cd mi-primer-proyecto</pre>
+                </li>
+                <li>Inicializa Git:
+                    <pre>git init</pre>
+                </li>
+                <li>Crea un archivo:
+                    <pre>echo "# Mi Primer Proyecto" > README.md</pre>
+                </li>
+                <li>Haz tu primer commit:
+                    <pre>git add README.md
+git commit -m "Commit inicial: agrega README"</pre>
+                </li>
+                <li>Crea un repositorio vacío en GitHub (sin README ni .gitignore)</li>
+                <li>Conecta tu proyecto local:
+                    <pre>git remote add origin https://github.com/tu-usuario/mi-primer-proyecto.git
+git branch -M main
+git push -u origin main</pre>
+                </li>
+                <li>Verifica en GitHub que tu archivo apareció</li>
+            </ol>
+
+            <p><strong>Desafío adicional:</strong> Crea un archivo <code>.gitignore</code> que ignore archivos
+                <code>.log</code>,
+                haz commit y push.
+            </p>
+        </section>
+
+        <section>
+            <h2>Ejercicio 2: Simulando Trabajo en Equipo (Con Ramas)</h2>
+            <p><strong>Objetivo:</strong> Practicar creación, fusión y manejo de ramas.</p>
+
+            <h3>Escenario:</h3>
+            <p>Estás desarrollando una app web. Necesitas agregar dos funcionalidades simultáneamente: un sistema de
+                login
+                y un carrito de compras.</p>
+
+            <h3>Pasos:</h3>
+            <ol>
+                <li>Clona o usa un proyecto existente:
+                    <pre>git clone https://github.com/tu-usuario/proyecto-web.git
+cd proyecto-web</pre>
+                </li>
+                <li>Crea una rama para login:
+                    <pre>git checkout -b feature/login
+echo "Código del sistema de login" > login.js
+git add login.js
+git commit -m "Agrega sistema de login"</pre>
+                </li>
+                <li>Vuelve a main y crea otra rama para carrito:
+                    <pre>git checkout main
+git checkout -b feature/carrito
+echo "Código del carrito de compras" > carrito.js
+git add carrito.js
+git commit -m "Agrega carrito de compras"</pre>
+                </li>
+                <li>Fusiona ambas ramas a main:
+                    <pre>git checkout main
+git merge feature/login
+git merge feature/carrito</pre>
+                </li>
+                <li>Verifica que ambos archivos existen:
+                    <pre>ls</pre>
+                </li>
+                <li>Borra las ramas obsoletas:
+                    <pre>git branch -d feature/login feature/carrito</pre>
+                </li>
+                <li>Sube main actualizado:
+                    <pre>git push origin main</pre>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Ejercicio 3: Resolver un Conflicto de Fusión</h2>
+            <p><strong>Objetivo:</strong> Enfrentar y resolver un conflicto real.</p>
+
+            <h3>Crear el conflicto a propósito:</h3>
+            <ol>
+                <li>Crea un archivo en main:
+                    <pre>echo "Línea original" > conflicto.txt
+git add conflicto.txt
+git commit -m "Agrega archivo conflicto.txt"</pre>
+                </li>
+                <li>Crea una rama y modifica el archivo:
+                    <pre>git checkout -b rama-a
+echo "Cambio en rama A" > conflicto.txt
+git add conflicto.txt
+git commit -m "Modifica archivo en rama A"</pre>
+                </li>
+                <li>Vuelve a main y modifica el mismo archivo:
+                    <pre>git checkout main
+echo "Cambio en main" > conflicto.txt
+git add conflicto.txt
+git commit -m "Modifica archivo en main"</pre>
+                </li>
+                <li>Intenta fusionar rama-a (aparecerá conflicto):
+                    <pre>git merge rama-a</pre>
+                </li>
+                <li>Abre <code>conflicto.txt</code> y verás:
+                    <pre>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Cambio en main
+=======
+Cambio en rama A
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; rama-a</pre>
+                </li>
+                <li>Edita manualmente, decide qué mantener, guarda el archivo</li>
+                <li>Marca como resuelto:
+                    <pre>git add conflicto.txt
+git commit -m "Resuelve conflicto de fusión"</pre>
+                </li>
+            </ol>
+
+            <p><strong>Reflexión:</strong> Los conflictos no son errores, son situaciones donde Git necesita tu criterio
+                humano para decidir qué código es correcto.</p>
+        </section>
+
+        <section>
+            <h2>Ejercicio 4: Contribuir a un Proyecto Open Source</h2>
+            <p><strong>Objetivo:</strong> Practicar el flujo Fork → Clone → Branch → PR.</p>
+
+            <h3>Pasos:</h3>
+            <ol>
+                <li>Encuentra un proyecto open source en GitHub (busca issues etiquetados como "good first issue")</li>
+                <li>Haz un Fork del proyecto (botón "Fork" en GitHub)</li>
+                <li>Clona tu fork:
+                    <pre>git clone https://github.com/tu-usuario/proyecto-forkeado.git</pre>
+                </li>
+                <li>Crea una rama para tu contribución:
+                    <pre>git checkout -b fix/typo-en-readme</pre>
+                </li>
+                <li>Haz cambios (por ejemplo, corrige un error tipográfico en README.md)</li>
+                <li>Commit y push:
+                    <pre>git add README.md
+git commit -m "Corrige error tipográfico en sección de instalación"
+git push origin fix/typo-en-readme</pre>
+                </li>
+                <li>Ve a GitHub y crea un Pull Request desde tu rama hacia el proyecto original</li>
+                <li>Espera feedback de los mantenedores</li>
+            </ol>
+
+            <p><strong>Consejo:</strong> Lee el archivo <code>CONTRIBUTING.md</code> del proyecto antes de contribuir.
+                Muchos proyectos tienen reglas específicas sobre formato de commits, estilo de código, etc.</p>
+        </section>
+
+        <section>
+            <h2>Caso Real 1: Deshacer un Commit Accidental</h2>
+            <p><strong>Problema:</strong> Hiciste commit de código incompleto o con bugs.</p>
+
+            <p><strong>Solución 1 (Si NO hiciste push):</strong></p>
+            <pre>git reset --soft HEAD~1  # Deshace el commit pero mantiene cambios en Staging
+# Editas y corriges
+git add .
+git commit -m "Versión corregida"</pre>
+
+            <p><strong>Solución 2 (Si YA hiciste push):</strong></p>
+            <pre>git revert HEAD  # Crea un nuevo commit que deshace el anterior
+git push</pre>
+
+            <p><strong>Lección:</strong> Si ya compartiste un commit con el equipo, usa <code>revert</code> en lugar de
+                <code>reset</code> para no reescribir historia pública.
+            </p>
+        </section>
+
+        <section>
+            <h2>Caso Real 2: Recuperar un Archivo Borrado</h2>
+            <p><strong>Problema:</strong> Borraste un archivo importante accidentalmente.</p>
+
+            <p><strong>Si no has hecho commit:</strong></p>
+            <pre>git restore archivo-borrado.txt</pre>
+
+            <p><strong>Si ya hiciste commit del borrado:</strong></p>
+            <pre>git log --diff-filter=D --summary  # Encuentra el commit donde se borró
+git checkout abc1234^ -- archivo-borrado.txt  # Restaura desde el commit anterior al borrado
+git add archivo-borrado.txt
+git commit -m "Recupera archivo borrado accidentalmente"</pre>
+        </section>
+
+        <section>
+            <h2>Caso Real 3: Tu Rama Está Muy Desactualizada</h2>
+            <p><strong>Problema:</strong> Llevas días trabajando en una rama y mientras tanto <code>main</code> avanzó
+                mucho. Ahora hay conflictos complicados.</p>
+
+            <p><strong>Solución:</strong></p>
+            <pre># Actualiza main
+git checkout main
+git pull
+
+# Vuelve a tu rama
+git checkout mi-rama
+
+# Opción 1: Merge (preserva historial)
+git merge main
+
+# Opción 2: Rebase (historia lineal)
+git rebase main</pre>
+
+            <p><strong>Consejo:</strong> Actualiza tu rama frecuentemente (diariamente) para evitar grandes diferencias.
+            </p>
+        </section>
+
+        <section>
+            <h2>Caso Real 4: Subiste Información Sensible (Contraseñas, API Keys)</h2>
+            <p><strong>Problema crítico:</strong> Hiciste commit de un archivo <code>.env</code> con claves secretas.
+            </p>
+
+            <p><strong>Solución:</strong></p>
+            <ol>
+                <li>Inmediatamente revoca/cambia las credenciales expuestas (en tu servicio web, base de datos, etc.)
+                </li>
+                <li>Elimina el archivo del historial con <code>git filter-branch</code> o <code>BFG Repo-Cleaner</code>:
+                    <pre>git filter-branch --force --index-filter \
+"git rm --cached --ignore-unmatch .env" \
+--prune-empty --tag-name-filter cat -- --all</pre>
+                </li>
+                <li>Fuerza un push:
+                    <pre>git push --force --all</pre>
+                </li>
+                <li>Informa a tu equipo que deben re-clonar el repositorio</li>
+            </ol>
+
+            <p><strong>Prevención:</strong> Siempre usa <code>.gitignore</code> para excluir archivos sensibles ANTES de
+                hacer cualquier commit.</p>
+        </section>
+
+        <section>
+            <h2>Comparación: Git vs Otros Sistemas</h2>
+
+            <h3>Git vs SVN (Subversion)</h3>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Git</th>
+                        <th>SVN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Arquitectura</td>
+                        <td>Distribuida (cada copia es completa)</td>
+                        <td>Centralizada (un servidor único)</td>
+                    </tr>
+                    <tr>
+                        <td>Velocidad</td>
+                        <td>Muy rápido (operaciones locales)</td>
+                        <td>Más lento (requiere red constantemente)</td>
+                    </tr>
+                    <tr>
+                        <td>Branching</td>
+                        <td>Extremadamente rápido y fácil</td>
+                        <td>Lento y complicado</td>
+                    </tr>
+                    <tr>
+                        <td>Trabajo offline</td>
+                        <td>Completo (commits, branches, historial)</td>
+                        <td>Limitado (solo lectura)</td>
+                    </tr>
+                    <tr>
+                        <td>Integridad</td>
+                        <td>Checksums SHA-1 en todo</td>
+                        <td>Números de revisión incrementales</td>
+                    </tr>
+                    <tr>
+                        <td>Curva de aprendizaje</td>
+                        <td>Más empinada</td>
+                        <td>Más simple pero menos potente</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Git vs Mercurial</h3>
+            <p>Ambos son distribuidos y similares en filosofía. <strong>Git ganó amplia adopción</strong> gracias a
+                GitHub, mayor ecosistema de herramientas y soporte de la comunidad. Mercurial es más simple
+                conceptualmente pero menos usado en la industria.</p>
+        </section>
+
+        <section>
+            <h2>Autoevaluación: ¿Estás Listo para Usar Git Profesionalmente?</h2>
+            <p>Marca las habilidades que dominas:</p>
+            <ul>
+                <li>[ ] Puedo inicializar un repositorio (<code>git init</code>) y hacer commits básicos</li>
+                <li>[ ] Entiendo los tres estados (Working Directory, Staging, Repository)</li>
+                <li>[ ] Sé crear y fusionar ramas sin ayuda</li>
+                <li>[ ] He resuelto al menos un conflicto de fusión real</li>
+                <li>[ ] Puedo conectar un repo local a GitHub y hacer push/pull</li>
+                <li>[ ] Entiendo la diferencia entre <code>merge</code> y <code>rebase</code></li>
+                <li>[ ] He contribuido a un proyecto ajeno mediante Pull Request</li>
+                <li>[ ] Sé deshacer cambios con <code>restore</code>, <code>reset</code> y <code>revert</code></li>
+                <li>[ ] Uso <code>.gitignore</code> correctamente para excluir archivos sensibles</li>
+                <li>[ ] Puedo leer y entender el historial con <code>git log</code> y <code>git diff</code></li>
+            </ul>
+
+            <p><strong>Si marcaste 8 o más:</strong> ¡Felicidades! Estás listo para trabajar con Git en proyectos
+                reales.</p>
+            <p><strong>Si marcaste 5-7:</strong> Tienes una base sólida, practica más los puntos que te faltan.</p>
+            <p><strong>Si marcaste menos de 5:</strong> Repasa los conceptos fundamentales y practica con proyectos
+                pequeños.</p>
+        </section>
+
+        <section>
+            <h2>Proyecto Final Propuesto</h2>
+            <p><strong>Crea una página web personal versionada con Git y desplegada en GitHub Pages.</strong></p>
+
+            <h3>Requisitos:</h3>
+            <ol>
+                <li>Crea un repositorio llamado <code>tu-usuario.github.io</code></li>
+                <li>Desarrolla una página HTML simple con tu perfil, proyectos y contacto</li>
+                <li>Usa al menos 3 ramas:
+                    <ul>
+                        <li><code>main</code> - Código en producción</li>
+                        <li><code>develop</code> - Código en desarrollo</li>
+                        <li><code>feature/nuevo-proyecto</code> - Rama para agregar un proyecto nuevo</li>
+                    </ul>
+                </li>
+                <li>Haz al menos 10 commits con mensajes descriptivos</li>
+                <li>Crea un <code>.gitignore</code> que excluya archivos temporales</li>
+                <li>Escribe un <code>README.md</code> profesional con descripción del proyecto</li>
+                <li>Despliega en GitHub Pages (Settings → Pages → Source: main branch)</li>
+            </ol>
+
+            <p><strong>Bonus:</strong></p>
+            <ul>
+                <li>Agrega un archivo <code>CONTRIBUTING.md</code> explicando cómo otros pueden contribuir</li>
+                <li>Configura GitHub Actions para validar automáticamente tu HTML</li>
+                <li>Invita a un amigo a hacer un Pull Request agregando su nombre a una lista de colaboradores</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p><a href="git-flujo.html">← Anterior: Flujo Completo Local-Remoto</a> | <a href="git-recursos.html">Siguiente:
+                Recursos Adicionales →</a></p>
+        <p><a href="../index.html">← Volver al índice</a></p>
+        <p><small>Creado por Rober Sonda — Guía de Control de Versiones 2025</small></p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flujo Completo: Local y Remoto</title>
+</head>
+
+<body>
+    <header>
+        <h1>Flujo Completo: Trabajo Local y Remoto</h1>
+        <nav>
+            <p>
+                <a href="../index.html">Inicio</a> |
+                <a href="git-introduccion.html">Introducción</a> |
+                <a href="git-que-es.html">¿Qué es Git?</a> |
+                <a href="git-instalacion.html">Instalación</a> |
+                <a href="git-comandos.html">Comandos</a> |
+                <a href="git-ramas.html">Ramas</a> |
+                <a href="git-flujo.html">Flujo Completo</a> |
+                <a href="git-practica.html">Práctica</a> |
+                <a href="git-recursos.html">Recursos</a> |
+                <a href="git-galeria.html">Galería</a> |
+                <a href="git-contacto.html">Contacto</a>
+            </p>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Entendiendo Local vs Remoto</h2>
+            <p>Hasta ahora hemos trabajado <strong>localmente</strong> (solo en tu computadora). Pero la verdadera magia
+                de Git ocurre cuando colaboras con otros mediante <strong>repositorios remotos</strong> alojados en
+                servidores como GitHub, GitLab o Bitbucket.</p>
+
+            <p><strong>Conceptos clave:</strong></p>
+            <ul>
+                <li><strong>Repositorio Local:</strong> Tu copia completa del proyecto en tu máquina. Aquí haces
+                    commits,
+                    creas ramas y experimentas libremente.</li>
+                <li><strong>Repositorio Remoto:</strong> Una versión del proyecto alojada en un servidor (como GitHub).
+                    Actúa como punto central de sincronización para el equipo.</li>
+                <li><strong>Origin:</strong> El nombre por defecto que Git le da al repositorio remoto desde donde
+                    clonaste.</li>
+            </ul>
+
+            <figure>
+                <figcaption>Arquitectura Local-Remoto</figcaption>
+                <pre>
+                    [GitHub - Repositorio Remoto]
+                     /          ↑           \
+            git clone/       git push      \git clone
+                   ↓            |             ↓
+        [Tu Máquina]      git pull      [Máquina de Compañero]
+        Repo Completo                   Repo Completo
+        + Commits                       + Commits
+        + Ramas                         + Ramas
+        </pre>
+            </figure>
+        </section>
+
+        <section>
+            <h2>Configurar un Repositorio Remoto</h2>
+
+            <h3>Conectar un repositorio local a GitHub</h3>
+            <p>Si ya tienes un proyecto local con Git (<code>git init</code>) y quieres subirlo a GitHub:</p>
+            <ol>
+                <li>Crea un repositorio vacío en GitHub (sin README, sin .gitignore)</li>
+                <li>Conecta tu repositorio local al remoto:
+                    <pre>git remote add origin https://github.com/tu-usuario/tu-proyecto.git</pre>
+                </li>
+                <li>Verifica la conexión:
+                    <pre>git remote -v</pre>
+                </li>
+                <li>Sube tu código por primera vez:
+                    <pre>git push -u origin main</pre>
+                </li>
+            </ol>
+
+            <p><strong>¿Qué significa <code>-u</code>?</strong> Establece "upstream tracking", es decir, vincula tu rama
+                local <code>main</code> con la rama remota <code>origin/main</code>. Después de esto, solo necesitas
+                escribir <code>git push</code> sin especificar rama.</p>
+
+            <h3>Cambiar la URL del remoto</h3>
+            <pre>git remote set-url origin https://github.com/nuevo-usuario/nuevo-proyecto.git</pre>
+
+            <h3>Ver información de remotos</h3>
+            <pre>git remote show origin</pre>
+        </section>
+
+        <section>
+            <h2>Los 4 Comandos Esenciales de Sincronización</h2>
+
+            <h3>1. git push - Subir cambios al servidor</h3>
+            <pre>git push origin main</pre>
+            <p><strong>¿Qué hace?</strong> Envía tus commits locales al repositorio remoto. Si configuraste upstream
+                tracking con <code>-u</code>, puedes simplemente usar:</p>
+            <pre>git push</pre>
+
+            <p><strong>Ejemplo:</strong></p>
+            <pre># Haces cambios localmente
+git add .
+git commit -m "Agrega validación de email"
+
+# Subes al servidor
+git push</pre>
+
+            <p><strong>Errores comunes:</strong></p>
+            <ul>
+                <li><strong>"Updates were rejected":</strong> Alguien más subió cambios antes que tú. Necesitas hacer
+                    <code>git pull</code> primero para integrar sus cambios.
+                </li>
+                <li><strong>Forced push:</strong> <code>git push --force</code> sobrescribe el historial remoto.
+                    <strong>Peligroso en equipos</strong>, úsalo solo si estás seguro y trabajas solo.
+                </li>
+            </ul>
+
+            <h3>2. git pull - Descargar cambios del servidor</h3>
+            <pre>git pull</pre>
+            <p><strong>¿Qué hace?</strong> Descarga commits nuevos del repositorio remoto y los integra automáticamente
+                en tu rama local. Es equivalente a:</p>
+            <pre>git fetch    # Descargar cambios
+git merge    # Integrar cambios</pre>
+
+            <p><strong>Flujo típico:</strong></p>
+            <pre># Al empezar tu día de trabajo
+git pull
+
+# Trabajas, haces commits
+git add .
+git commit -m "Implementa feature X"
+
+# Antes de subir, te actualizas por si hay cambios nuevos
+git pull
+
+# Subes tus cambios
+git push</pre>
+
+            <h3>3. git fetch - Descargar cambios sin integrar</h3>
+            <pre>git fetch origin</pre>
+            <p><strong>¿Qué hace?</strong> Descarga todos los cambios del remoto pero <strong>NO los integra</strong> en
+                tu rama actual. Te permite revisar qué cambios hay antes de fusionarlos.</p>
+
+            <pre>git fetch origin
+git log origin/main  # Ver commits nuevos en el remoto
+git diff main origin/main  # Ver diferencias
+git merge origin/main  # Si todo está bien, integras manualmente</pre>
+
+            <p><strong>¿Por qué es útil?</strong> Te da control total. Puedes inspeccionar cambios antes de integrarlos,
+                evitando sorpresas con código roto.</p>
+
+            <h3>4. git clone - Copiar un repositorio remoto</h3>
+            <pre>git clone https://github.com/usuario/proyecto.git</pre>
+            <p><strong>¿Qué hace?</strong> Crea una copia local completa de un repositorio remoto (incluye todo el
+                historial, ramas, tags, etc.).</p>
+
+            <p><strong>Ejemplo de flujo de colaboración:</strong></p>
+            <pre># Tu compañero crea un proyecto en GitHub
+git clone https://github.com/compañero/proyecto.git
+cd proyecto
+
+# Creas una rama para tu tarea
+git checkout -b mi-funcionalidad
+
+# Trabajas y haces commits
+git add .
+git commit -m "Agrega funcionalidad Y"
+
+# Subes tu rama
+git push origin mi-funcionalidad
+
+# Tu compañero puede descargar tu rama y revisarla
+git fetch origin
+git checkout mi-funcionalidad</pre>
+        </section>
+
+        <section>
+            <h2>Pull Requests (GitHub/GitLab) - Revisión de Código</h2>
+            <p>Un <strong>Pull Request (PR)</strong> es una solicitud formal para integrar cambios de una rama a otra.
+                No es un comando de Git, sino una funcionalidad de GitHub/GitLab/Bitbucket.</p>
+
+            <p><strong>Flujo completo con Pull Request:</strong></p>
+            <ol>
+                <li>Creas una rama local para tu tarea:
+                    <pre>git checkout -b feature/nueva-funcionalidad</pre>
+                </li>
+                <li>Haces cambios y commits:
+                    <pre>git add .
+git commit -m "Implementa nueva funcionalidad"</pre>
+                </li>
+                <li>Subes tu rama al remoto:
+                    <pre>git push origin feature/nueva-funcionalidad</pre>
+                </li>
+                <li>Vas a GitHub y creas un Pull Request desde tu rama hacia <code>main</code></li>
+                <li>Tus compañeros revisan el código, comentan, sugieren cambios</li>
+                <li>Haces ajustes si es necesario:
+                    <pre>git add .
+git commit -m "Corrige sugerencias de PR"
+git push  # Se actualiza automáticamente el PR</pre>
+                </li>
+                <li>Una vez aprobado, se fusiona el PR (merge) en <code>main</code></li>
+                <li>Borras la rama obsoleta:
+                    <pre>git branch -d feature/nueva-funcionalidad
+git push origin --delete feature/nueva-funcionalidad</pre>
+                </li>
+            </ol>
+
+            <p><strong>Ventajas de usar Pull Requests:</strong></p>
+            <ul>
+                <li>Revisión de código por pares (mejora la calidad)</li>
+                <li>Discusiones contextuales sobre cambios específicos</li>
+                <li>Integración continua automática (tests antes de fusionar)</li>
+                <li>Historial claro de decisiones y aprobaciones</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Trabajar con Ramas Remotas</h2>
+
+            <h3>Ver ramas remotas</h3>
+            <pre>git branch -r        # Solo remotas
+git branch -a        # Todas (locales + remotas)</pre>
+
+            <h3>Crear una rama local basada en una remota</h3>
+            <pre>git checkout --track origin/nombre-rama</pre>
+
+            <h3>Actualizar la lista de ramas remotas</h3>
+            <pre>git fetch --prune</pre>
+            <p>Elimina referencias a ramas remotas que ya fueron borradas.</p>
+
+            <h3>Subir una rama nueva</h3>
+            <pre>git push -u origin mi-nueva-rama</pre>
+
+            <h3>Borrar una rama remota</h3>
+            <pre>git push origin --delete nombre-rama</pre>
+        </section>
+
+        <section>
+            <h2>Flujo Completo de un Día Típico</h2>
+            <pre># 1. Empiezas el día actualizando tu copia local
+git checkout main
+git pull
+
+# 2. Creas una rama para tu tarea del día
+git checkout -b fix/bug-login
+
+# 3. Trabajas, haces múltiples commits
+git add archivo1.js archivo2.js
+git commit -m "Corrige validación en login"
+
+git add tests/
+git commit -m "Agrega tests para fix de login"
+
+# 4. Antes de subir, te actualizas de main por si hay cambios
+git checkout main
+git pull
+git checkout fix/bug-login
+git merge main  # O: git rebase main
+
+# 5. Resuelves conflictos si existen
+# (editas archivos, git add, git commit)
+
+# 6. Subes tu rama
+git push -u origin fix/bug-login
+
+# 7. Creas un Pull Request en GitHub
+
+# 8. Compañeros revisan, aprueban, fusionan
+
+# 9. Actualizas tu main local
+git checkout main
+git pull
+
+# 10. Borras la rama ya fusionada
+git branch -d fix/bug-login
+git push origin --delete fix/bug-login</pre>
+        </section>
+
+        <section>
+            <h2>Forks y Contribuciones a Proyectos Open Source</h2>
+            <p><strong>Fork:</strong> Una copia de un repositorio en tu cuenta de GitHub. Te permite experimentar sin
+                afectar el proyecto original.</p>
+
+            <p><strong>Flujo para contribuir a proyectos open source:</strong></p>
+            <ol>
+                <li>Haz un fork del proyecto en GitHub (botón "Fork")</li>
+                <li>Clona tu fork:
+                    <pre>git clone https://github.com/tu-usuario/proyecto-forkeado.git</pre>
+                </li>
+                <li>Configura el repositorio original como "upstream":
+                    <pre>git remote add upstream https://github.com/autor-original/proyecto.git</pre>
+                </li>
+                <li>Crea una rama para tu contribución:
+                    <pre>git checkout -b mi-contribucion</pre>
+                </li>
+                <li>Haz cambios, commits y push:
+                    <pre>git add .
+git commit -m "Agrega funcionalidad solicitada en issue #42"
+git push origin mi-contribucion</pre>
+                </li>
+                <li>Crea un Pull Request desde tu fork hacia el proyecto original</li>
+                <li>Mantén tu fork actualizado:
+                    <pre>git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main</pre>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Resolución de Conflictos en Pull</h2>
+            <p>Si haces <code>git pull</code> y hay conflictos:</p>
+            <pre>git pull
+
+Auto-merging archivo.js
+CONFLICT (content): Merge conflict in archivo.js
+Automatic merge failed; fix conflicts and then commit the result.</pre>
+
+            <ol>
+                <li>Abre los archivos con conflictos</li>
+                <li>Busca las marcas <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>,
+                    <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>
+                </li>
+                <li>Resuelve manualmente</li>
+                <li>Marca como resuelto:
+                    <pre>git add archivo.js</pre>
+                </li>
+                <li>Completa el pull:
+                    <pre>git commit</pre>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Autenticación: HTTPS vs SSH</h2>
+
+            <h3>HTTPS (más simple para empezar)</h3>
+            <pre>git clone https://github.com/usuario/proyecto.git</pre>
+            <p>Requiere usuario y contraseña (o Personal Access Token desde 2021).</p>
+
+            <h3>SSH (recomendado para uso frecuente)</h3>
+            <pre>git clone git@github.com:usuario/proyecto.git</pre>
+            <p><strong>Ventajas:</strong> No necesitas escribir contraseña cada vez. Usas claves SSH.</p>
+
+            <p><strong>Configurar SSH:</strong></p>
+            <ol>
+                <li>Genera un par de claves SSH:
+                    <pre>ssh-keygen -t ed25519 -C "tu@email.com"</pre>
+                </li>
+                <li>Copia la clave pública:
+                    <pre>cat ~/.ssh/id_ed25519.pub</pre>
+                </li>
+                <li>Agrégala a GitHub: Settings → SSH and GPG keys → New SSH key</li>
+                <li>Prueba la conexión:
+                    <pre>ssh -T git@github.com</pre>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Comandos de Emergencia</h2>
+
+            <h3>Deshiciste commits locales y quieres recuperarlos</h3>
+            <pre>git reflog  # Ver historial de cambios en HEAD
+git reset --hard abc1234  # Volver a un punto específico</pre>
+
+            <h3>Subiste un commit con información sensible</h3>
+            <pre>git revert abc1234  # Deshace el commit problemático (seguro)
+
+# O si nadie más ha descargado:
+git reset --hard HEAD~1
+git push --force</pre>
+
+            <h3>Tu rama está muy desincronizada</h3>
+            <pre>git fetch origin
+git reset --hard origin/main  # CUIDADO: Pierdes cambios locales</pre>
+        </section>
+    </main>
+
+    <footer>
+        <hr>
+        <p><a href="git-ramas.html">← Anterior: Ramas y Branching</a> | <a href="git-practica.html">Siguiente: Práctica
+                y Casos Reales →</a></p>
+        <p><a href="../index.html">← Volver al índice</a></p>
+        <p><small>Creado por Rober Sonda — Guía de Control de Versiones 2025</small></p>
+    </footer>
+</body>
+
+</html>
