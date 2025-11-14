@@ -33,59 +33,20 @@ El sitio está organizado en ocho módulos temáticos independientes pero secuen
 - Instalación y Configuración
   Guía detallada paso a paso para instalar Git en Windows, macOS y Linux. Cubre configuraciones iniciales obligatorias, configuración de identidad, alias útiles, editores de texto y preparación del entorno de desarrollo.
 
-- Comandos Esenciales
-  Exposición completa de los comandos fundamentales: add, commit, status, log, diff, restore, reset y más. Explica los tres estados de Git (Working Directory, Staging Area, Repository) con ejemplos prácticos detallados.
+## Segundara tarea HTML
 
-- Ramas y Branching
-  Análisis profundo de la característica más poderosa de Git: el sistema de ramas. Enseña a crear, fusionar, eliminar y gestionar ramas, resolver conflictos de fusión, diferencias entre merge y rebase, y estrategias de branching profesionales como Git Flow.
+En esta segunda tarea trabajaremos sobre el archivo de la tarea anterior. 
 
-- Flujo Completo: Trabajo Local y Remoto
-  Conecta el trabajo local con repositorios remotos en plataformas como GitHub y GitLab. Dominio de push, pull, fetch, clone, fork y colaboración mediante Pull Requests. Incluye autenticación SSH, tokens de acceso y flujos de trabajo colaborativos.
+## Consigna:
 
-- Práctica y Casos Reales
-  Ejercicios guiados paso a paso: creación del primer proyecto, simulación de trabajo en equipo, resolución práctica de conflictos, contribución a proyectos open source. Incluye casos reales como recuperación de archivos borrados y corrección de commits erróneos.
+- A partir del menú de navegación previamente creado para la primera tarea, crear una paginación de modo que cada enlace del menú lleve a una nueva página del sitio. Ejemplo: Contacto lleve a contacto.html.
+- Para poner en práctica los conceptos de tablas que vimos durante la clase, armar una pequeña galeria de fotos en alguna de las páginas usando las tablas de html.
+- Crear al menos 5 secciones temáticas en la hoja principal que contengan elementos iframe. Pueden ser videos de youtube, listas de spotify o cualquier otra cosa que investiguen que pueda incorporarse via iframe.
 
-- Recursos Adicionales y Mejores Prácticas
-  Errores comunes y sus soluciones, mejores prácticas profesionales, herramientas complementarias (GUI clients, extensiones de VS Code), Git Hooks, cheat sheet completo de comandos, y recursos de aprendizaje continuo recomendados.
-
-
-Características Técnicas
--------------------------
-
-- HTML5 semántico puro sin CSS ni JavaScript
-- Enfoque en accesibilidad universal y compatibilidad multiplataforma
-- Navegación mediante enlaces internos y externos claramente estructurados
-- Sistema de navegación bidireccional entre páginas (anterior/siguiente)
-- Enlaces de retorno al inicio en cada sección para facilitar la navegación
-- Estructura modular que permite consulta no lineal del contenido
-- Formato responsive nativo mediante HTML semántico
-- Contenido completamente en español con terminología técnica apropiada
-- Ejemplos de código formateados con la etiqueta pre para mantener formato
-- Tablas de referencia para consulta rápida de comandos
-
-
-Arquitectura de Archivos
--------------------------
-
-La estructura del proyecto está organizada de la siguiente manera:
-
-index.html                      Página principal y hub de navegación central
-pages/
-  - git-introduccion.html       Introducción al control de versiones
-  - git-que-es.html             Arquitectura y modelo distribuido de Git
-  - git-instalacion.html        Instalación y configuración del entorno
-  - git-comandos.html           Comandos esenciales y flujo básico
-  - git-ramas.html              Sistema de ramas y branching avanzado
-  - git-flujo.html              Integración local-remoto y colaboración
-  - git-practica.html           Ejercicios prácticos y casos reales
-  - git-recursos.html           Recursos adicionales y mejores prácticas
-lang/
-  - en.json                     Archivo de idioma inglés (futuro uso)
-  - es.json                     Archivo de idioma español (futuro uso)
-README.md                       Documentación del proyecto
-
-
-Metodología Pedagógica
+## Nota:
+- Para clonar el repo **git clone "enlace al repo"**
+- Para bajar descargar nuevos cambios una vez clonado **git pull** estando parado en la rama de la cual se quieren bajar cambios.
+- Para cambiarte de rama **git checkout "nombre de rama"**
 -----------------------
 
 El contenido educativo está diseñado con múltiples técnicas de enseñanza complementarias:
