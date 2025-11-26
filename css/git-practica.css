@@ -1,0 +1,9 @@
+/* Estilos para git-practica.html extraídos del HTML */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
