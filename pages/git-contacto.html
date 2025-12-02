@@ -3,14 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/git-contacto.css">
 </head>
 
 <body>
     <header>
-        <h1>Contacto</h1>
         <nav>
             <ul>
                 <li><a href="../index.html">Inicio</a></li>
@@ -26,59 +29,65 @@
                 <li><a href="git-contacto.html">Contacto</a></li>
             </ul>
         </nav>
+
+        <h1 class="h1-centro">Contacto</h1>
     </header>
     <main>
-        <h2>Formulario de Contacto</h2>
-        <form id="contactForm" action="https://formspree.io/f/xdoqzqzq" method="POST">
-            <label for="nombre">Nombre:</label><br>
-            <input type="text" id="nombre" name="nombre" required><br><br>
-            <label for="email">Correo electrónico:</label><br>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="mensaje">Mensaje:</label><br>
-            <textarea id="mensaje" name="mensaje" rows="5" cols="30" required></textarea><br><br>
-            <input type="hidden" name="_replyto" value="rober.sonda.dev@gmail.com">
-            <button type="submit">Enviar</button>
-            <div id="formMsg" style="margin-top:10px;"></div>
-        </form>
-        <h2>Ubicación</h2>
-        <iframe loading="lazy"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.953735315904!3d-37.8162797420217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f1f6e0b1%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1ses!2sar!4v1638300000000!5m2!1ses!2sar"
-            width="100%" height="250" style="border:0; margin-top:1em;" allowfullscreen=""
-            referrerpolicy="no-referrer-when-downgrade" title="Ubicación Google Maps"></iframe>
-        <script>
-            document.getElementById('contactForm').onsubmit = async function (e) {
-                e.preventDefault();
-                const form = e.target;
-                const msg = document.getElementById('formMsg');
-                msg.textContent = 'Enviando...';
-                try {
-                    const res = await fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form),
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (res.ok) {
-                        msg.style.color = 'green';
-                        msg.textContent = '¡Mensaje enviado correctamente!';
-                        form.reset();
-                    } else {
-                        msg.style.color = 'red';
-                        msg.textContent = 'Error al enviar. Intenta nuevamente.';
-                    }
-                } catch {
-                    msg.style.color = 'red';
-                    msg.textContent = 'Error de red. Intenta más tarde.';
-                }
-            };
-        </script>
+        <section>
+            <h2>¿Tienes una consulta sobre Git?</h2>
+            <p>¿Te quedó alguna duda sobre el uso de Git, necesitas ayuda con comandos, ramas, o quieres sugerir un
+                recurso para la guía? Completa el formulario y te responderé a la brevedad (simulado).</p>
+            <form action="#" method="post" autocomplete="on" style="max-width:480px;margin:auto;">
+                <label for="nombre">Nombre completo <span style="color:#d32f2f;">*</span></label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required minlength="2"
+                    maxlength="60" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,60}"
+                    title="Solo letras y espacios, mínimo 2 caracteres">
+
+                <label for="email">Correo electrónico <span style="color:#d32f2f;">*</span></label>
+                <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required maxlength="80">
+
+                <label for="motivo">Motivo de la consulta <span style="color:#d32f2f;">*</span></label>
+                <select id="motivo" name="motivo" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="duda">Duda sobre Git</option>
+                    <option value="sugerencia">Sugerencia para la guía</option>
+                    <option value="error">Reportar un error</option>
+                    <option value="otro">Otro</option>
+                </select>
+
+                <label for="mensaje">Mensaje <span style="color:#d32f2f;">*</span></label>
+                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu consulta o comentario aquí..."
+                    required minlength="10" maxlength="1000"></textarea>
+
+                <label for="nivel">¿Qué nivel de experiencia tienes con Git? <span
+                        style="color:#d32f2f;">*</span></label>
+                <select id="nivel" name="nivel" required>
+                    <option value="" disabled selected>Selecciona tu nivel</option>
+                    <option value="principiante">Principiante</option>
+                    <option value="intermedio">Intermedio</option>
+                    <option value="avanzado">Avanzado</option>
+                </select>
+
+                <label for="archivo">¿Deseas adjuntar un archivo? (opcional)</label>
+                <input type="file" id="archivo" name="archivo" accept=".png,.jpg,.jpeg,.pdf,.txt,.zip">
+
+                <div style="margin:1em 0 0.5em 0;">
+                    <input type="checkbox" id="info" name="info" required>
+                    <label for="info" style="display:inline;">Acepto que esta consulta es solo educativa y no se enviará
+                        realmente.</label>
+                </div>
+
+                <button type="submit" disabled style="opacity:0.6;cursor:not-allowed;">Enviar consulta
+                    (simulado)</button>
+                <p style="font-size:0.95em;color:#888;margin-top:0.5em;">* El envío es simulado. No se enviará ningún
+                    email real.<br>Destino: rober.junin@gmail.com</p>
+            </form>
+        </section>
     </main>
     <footer>
-        <p>
-            <a href="#inicio">Volver arriba</a> |
-            <a href="../index.html">Índice</a> |
-            <a href="git-galeria.html">Anterior: Galería</a>
-        </p>
-        <p><strong>Creado por Rober Sonda</strong></p>
+        <hr>
+        <p><a href="../index.html">Volver al índice</a></p>
+        <p><small>Creado por Rober Sonda — Guía de Control de Versiones 2025</small></p>
     </footer>
 </body>
 

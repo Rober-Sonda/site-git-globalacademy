@@ -1,9 +1,4 @@
-/* Estilos para git-instalacion.html extraídos del HTML */
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-}
+/*
+ * Este archivo es para estilos específicos de la página git-instalacion.html.
+ * Si no hay estilos propios, déjalo así para futuras personalizaciones.
+ */

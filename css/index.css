@@ -1,0 +1,411 @@
+/* Hero de inicio pantalla completa */
+.hero-inicio {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(120deg, #e0f2f1 60%, #c8e6c9 100%);
+    box-shadow: 0 4px 32px rgba(56, 142, 60, 0.07), 0 1.5px 8px rgba(0, 0, 0, 0.04);
+    padding: 0 1em;
+    margin-bottom: 2em;
+}
+
+.hero-inicio header {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding-top: 2em;
+}
+
+.hero-inicio nav ul {
+    background: linear-gradient(90deg, #e0e0e0 60%, #c8e6c9 100%);
+    box-shadow: 0 4px 16px rgba(56, 142, 60, 0.08);
+    border-radius: 12px;
+    padding: 0.7em 0.5em;
+    margin: 0 auto 1.5em auto;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.hero-inicio .h1-centro {
+    font-size: clamp(2.1em, 6vw, 3.2em);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    color: #222;
+    background: none;
+    margin: 2.5em auto 0 auto;
+    padding: 0.2em 0.7em 0.2em 0.7em;
+    border-radius: 8px;
+    box-shadow: none;
+    text-shadow: 0 1.5px 6px rgba(56, 142, 60, 0.10);
+    display: block;
+    text-align: center;
+    line-height: 1.08;
+    border: none;
+    max-width: 90vw;
+    background-clip: padding-box;
+}
+
+@media (max-width: 700px) {
+    .hero-inicio .h1-centro {
+        font-size: clamp(1.2em, 8vw, 2em);
+        padding: 0.1em 0.2em;
+    }
+
+    .hero-inicio header {
+        padding-top: 1em;
+    }
+}
+
+/* ==================================================
+   CSS ORDENADO POR ESPECIFICIDAD (DE MENOR A MAYOR)
+   Notación: (ID*100) + (clases*10) + elementos*1
+   ================================================== */
+
+
+/* ==================================================
+   = 1 — ESPECIFICIDAD BAJA (ELEMENTOS)
+   ================================================== */
+
+body {
+    font-family: 'Inter', 'Roboto', Arial, sans-serif;
+    background: #f7fafc;
+    color: #222;
+    font-size: 1.08em;
+    line-height: 1.7;
+}
+
+a {
+    color: #2e7d32;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+ul,
+ol {
+    margin-left: 2em;
+    margin-bottom: 1.2em;
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+}
+
+h2 {
+    font-size: 2em;
+    font-weight: 700;
+    color: #222;
+    margin-top: 1.5em;
+    margin-bottom: 0.7em;
+    letter-spacing: -0.5px;
+}
+
+main {
+    max-width: 950px;
+    margin: 2.5em auto 2em auto;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 32px rgba(56, 142, 60, 0.07),
+        0 1.5px 8px rgba(0, 0, 0, 0.04);
+    padding: 2.5em 2em 2em 2em;
+}
+
+section {
+    margin-bottom: 2.5em;
+    padding: 1.2em 1em;
+    background: #f9fbe7;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px rgba(56, 142, 60, 0.04);
+}
+
+iframe {
+    display: block;
+    margin: 2em auto;
+    border-radius: 10px;
+    border: 1.5px solid #c8e6c9;
+    box-shadow: 0 2px 16px rgba(56, 142, 60, 0.10);
+}
+
+footer {
+    background: #222;
+    color: #fff;
+    padding: 1.5em 0 1em 0;
+    text-align: center;
+    border-top: 3px solid #388e3c;
+    font-size: 1.08em;
+    margin-top: 2em;
+    letter-spacing: 0.02em;
+    border-radius: 0;
+    width: 100vw;
+    min-width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 -2px 12px rgba(56, 142, 60, 0.07);
+}
+
+@media (max-width: 650px) {
+    footer {
+        border-radius: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+
+/* ==================================================
+   = 2 — ELEMENTOS DESCENDIENTES (elem elem)
+   ================================================== */
+
+ul li,
+ol li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0.7em;
+}
+
+li strong {
+    color: #388e3c;
+}
+
+header h1 {
+    font-size: 2.7em;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #388e3c;
+    margin-bottom: 0.2em;
+    text-shadow: 0 2px 8px rgba(56, 142, 60, 0.08);
+}
+
+section h2 {
+    color: #388e3c;
+    font-size: 1.5em;
+    margin-bottom: 0.7em;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+
+/* ==================================================
+   = 10 — CLASES SIMPLES
+   ================================================== */
+
+.destacado {
+    background: #f1f8e9;
+    border-left: 5px solid #388e3c;
+    padding: 1.2em 1.5em;
+    margin: 2.2em 0;
+    border-radius: 8px;
+    font-size: 1.13em;
+    box-shadow: 0 1px 8px rgba(56, 142, 60, 0.07);
+}
+
+.bienvenida {
+    text-align: center;
+    margin-bottom: 2.5em;
+    padding: 1.5em 1em;
+    background: #e8f5e9;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(56, 142, 60, 0.06);
+}
+
+/* Carrusel */
+.carrusel-section {
+    margin: 3em auto 2em auto;
+    background: #f9fbe7;
+    border-radius: 14px;
+    box-shadow: 0 2px 16px rgba(56, 142, 60, 0.08);
+    padding: 2em 1em 2.5em 1em;
+    text-align: center;
+}
+
+.carrusel {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.carrusel-items {
+    position: relative;
+    min-height: 370px;
+}
+
+.carrusel-item {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    transition: opacity 0.4s;
+    opacity: 0;
+    z-index: 1;
+}
+
+.carrusel-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.carrusel-nav label {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: #c8e6c9;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #388e3c;
+    transition: background 0.2s, border 0.2s;
+}
+
+.carrusel-item h3 {
+    margin-bottom: 1em;
+    color: #388e3c;
+    font-size: 1.2em;
+}
+
+.carrusel-item iframe {
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+    border: 1.5px solid #c8e6c9;
+    box-shadow: 0 2px 16px rgba(56, 142, 60, 0.10);
+}
+
+
+/* ==================================================
+   = 11 — CLASE + ELEMENTO / PSEUDOCLASE
+   ================================================== */
+
+a:hover {
+    color: #1b5e20;
+    text-decoration: underline;
+}
+
+.checklist li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0.7em;
+}
+
+.checklist li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    color: #388e3c;
+    font-size: 1.1em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.bienvenida h2 {
+    color: #222;
+    font-size: 1.6em;
+    margin-bottom: 0.5em;
+}
+
+.bienvenida ul {
+    display: inline-block;
+    text-align: left;
+    margin: 1.2em auto;
+    padding: 1em 2em;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(56, 142, 60, 0.04);
+}
+
+.bienvenida a {
+    font-weight: 600;
+    color: #1b5e20;
+}
+
+footer a:hover {
+    color: #81c784;
+}
+
+
+/* ==================================================
+   = 12 — CLASE + ELEMENTO + ELEMENTO
+   ================================================== */
+
+.bienvenida ul li {
+    margin-bottom: 0.7em;
+    font-size: 1.08em;
+    padding-left: 0.2em;
+}
+
+
+/* ==================================================
+   = 20 — DOS CLASES
+   ================================================== */
+
+.bienvenida .destacado {
+    background: #fffde7;
+    border-left: 5px solid #fbc02d;
+    color: #795548;
+    font-size: 1.08em;
+    margin: 1.5em auto;
+    box-shadow: 0 1px 6px rgba(251, 192, 45, 0.08);
+}
+
+
+/* ==================================================
+   = 21 — DOS CLASES + PSEUDO-CLASE
+   ================================================== */
+
+.bienvenida a:hover {
+    color: #388e3c;
+}
+
+
+/* ==================================================
+   = 101 — ID PRESENTE
+   ================================================== */
+
+section#comenzar {
+    background: linear-gradient(90deg, #e0f7fa 60%, #c8e6c9 100%);
+    border-left: 6px solid #388e3c;
+    box-shadow: 0 2px 16px rgba(56, 142, 60, 0.08);
+}
+
+
+/* ==================================================
+   = 102+ — INPUTS DEL CARRUSEL (ID + clases)
+   ================================================== */
+
+#carrusel-1:checked~.carrusel-items .item-1,
+#carrusel-2:checked~.carrusel-items .item-2,
+#carrusel-3:checked~.carrusel-items .item-3,
+#carrusel-4:checked~.carrusel-items .item-4 {
+    display: block;
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+
+#carrusel-1:checked~.carrusel-nav label[for="carrusel-1"],
+#carrusel-2:checked~.carrusel-nav label[for="carrusel-2"],
+#carrusel-3:checked~.carrusel-nav label[for="carrusel-3"],
+#carrusel-4:checked~.carrusel-nav label[for="carrusel-4"] {
+    background: #388e3c;
+    border: 2px solid #222;
+}
