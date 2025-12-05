@@ -13,25 +13,25 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="git-introduccion.html">Introducción</a></li>
-                <li><a href="git-que-es.html">¿Qué es Git?</a></li>
-                <li><a href="git-instalacion.html">Instalación</a></li>
-                <li><a href="git-comandos.html">Comandos</a></li>
-                <li><a href="git-ramas.html">Ramas</a></li>
-                <li><a href="git-flujo.html">Flujo</a></li>
-                <li><a href="git-practica.html">Práctica</a></li>
-                <li><a href="git-recursos.html">Recursos</a></li>
-                <li><a href="git-galeria.html">Galería</a></li>
-                <li><a href="git-contacto.html">Contacto</a></li>
-            </ul>
-        </nav>
 
+    <section class="hero-universal">
         <h1 class="h1-centro">Comandos Esenciales de Git</h1>
-    </header>
+    </section>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="git-introduccion.html">Introducción</a></li>
+            <li><a href="git-que-es.html">¿Qué es Git?</a></li>
+            <li><a href="git-instalacion.html">Instalación</a></li>
+            <li><a href="git-comandos.html">Comandos</a></li>
+            <li><a href="git-ramas.html">Ramas</a></li>
+            <li><a href="git-flujo.html">Flujo</a></li>
+            <li><a href="git-practica.html">Práctica</a></li>
+            <li><a href="git-recursos.html">Recursos</a></li>
+            <li><a href="git-galeria.html">Galería</a></li>
+            <li><a href="git-contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
 
     <main>
         <!-- Video: Comandos de Git (MoureDev) -->
@@ -58,17 +58,11 @@
             </ol>
 
             <figure>
+                <img loading="lazy"
+                    src="https://www.dropbox.com/scl/fi/ub5d8gaoxgnxpxcr59moa/git-fases-files.png?rlkey=iclhyjpow0bkoqsu4kkclr0qc&st=3za881rw&raw=1"
+                    alt="Flujo de estados en Git"
+                    style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
                 <figcaption>Flujo de Estados en Git</figcaption>
-                <pre>
-Working Directory → Staging Area → Repository
-  (modificas)     → (git add)    → (git commit)
-
-┌──────────────────┐   git add    ┌──────────────┐   git commit   ┌─────────────┐
-│ Working Directory│──────────────→│ Staging Area │───────────────→│ Repository  │
-│  Archivos que   │               │  Preparados  │                │  Historial  │
-│  estás editando │               │  para commit │                │  Permanente │
-└──────────────────┘               └──────────────┘                └─────────────┘
-        </pre>
             </figure>
 
             <p><strong>Analogía:</strong> Imagina que estás empacando una caja para enviar. El <em>Working

@@ -13,24 +13,25 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="git-introduccion.html">Introducción</a></li>
-                <li><a href="git-que-es.html">¿Qué es Git?</a></li>
-                <li><a href="git-instalacion.html">Instalación</a></li>
-                <li><a href="git-comandos.html">Comandos</a></li>
-                <li><a href="git-ramas.html">Ramas</a></li>
-                <li><a href="git-flujo.html">Flujo</a></li>
-                <li><a href="git-practica.html">Práctica</a></li>
-                <li><a href="git-recursos.html">Recursos</a></li>
-                <li><a href="git-galeria.html">Galería</a></li>
-                <li><a href="git-contacto.html">Contacto</a></li>
-            </ul>
-        </nav>
+
+    <section class="hero-universal">
         <h1 class="h1-centro">¿Qué es Git?</h1>
-    </header>
+    </section>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="git-introduccion.html">Introducción</a></li>
+            <li><a href="git-que-es.html">¿Qué es Git?</a></li>
+            <li><a href="git-instalacion.html">Instalación</a></li>
+            <li><a href="git-comandos.html">Comandos</a></li>
+            <li><a href="git-ramas.html">Ramas</a></li>
+            <li><a href="git-flujo.html">Flujo</a></li>
+            <li><a href="git-practica.html">Práctica</a></li>
+            <li><a href="git-recursos.html">Recursos</a></li>
+            <li><a href="git-galeria.html">Galería</a></li>
+            <li><a href="git-contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
 
     <main>
         <!-- Video: ¿Qué es Git? (MoureDev) -->
@@ -65,25 +66,12 @@
             </p>
 
             <figure>
-                <figcaption>Arquitectura Distribuida de Git</figcaption>
-                <pre>
-    [Repositorio Remoto en GitHub]
-         ↓ clone        ↑ push
-         ↓              ↑
-    ┌────────────────────────────┐
-    │   Desarrollador A          │
-    │   [Repositorio Completo]   │ ← Copia íntegra con TODO el historial
-    │   + Working Directory      │
-    │   + Staging Area           │
-    └────────────────────────────┘
 
-    ┌────────────────────────────┐
-    │   Desarrollador B          │
-    │   [Repositorio Completo]   │ ← Otra copia independiente completa
-    │   + Working Directory      │
-    │   + Staging Area           │
-    └────────────────────────────┘
-        </pre>
+                <img loading="lazy"
+                    src="https://www.dropbox.com/scl/fi/dcicbal8loqaqu39zbqy5/git-arquitectura-distribuida.png?rlkey=9pmdjerlw9vvivqonyg72ofp2&st=gal30dvy&raw=1"
+                    alt="Arquitectura distribuida de Git"
+                    style="max-width:100%;height:auto;border-radius:10px;box-shadow:0 2px 12px rgba(56,142,60,0.10);margin:1em auto;display:block;" />
+                <figcaption>Arquitectura Distribuida de Git</figcaption>
             </figure>
         </section>
 
