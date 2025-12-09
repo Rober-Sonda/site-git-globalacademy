@@ -22,16 +22,20 @@
     margin: 0 auto;
     background: none;
     box-shadow: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     border-radius: 0;
     padding-top: 2em;
 }
 
 .hero-inicio nav ul {
     background: linear-gradient(90deg, #e0e0e0 60%, #c8e6c9 100%);
+    box-sizing: border-box;
     box-shadow: 0 4px 16px rgba(56, 142, 60, 0.08);
     border-radius: 12px;
     padding: 0.7em 0.5em;
     margin: 0 auto 1.5em auto;
+    width: 100%;
     list-style: none;
     display: flex;
     flex-wrap: wrap;
@@ -41,6 +45,18 @@
 }
 
 .hero-inicio .h1-centro {
+    main {
+        padding: 0.5em 0.1em 0.5em 0.1em;
+    }
+
+    section {
+        padding: 0.5em 0.1em;
+    }
+
+    .carrusel-section {
+        padding: 1em 0.2em 1.5em 0.2em;
+    }
+
     font-size: clamp(2.1em, 6vw, 3.2em);
     font-weight: 900;
     letter-spacing: -1.5px;
